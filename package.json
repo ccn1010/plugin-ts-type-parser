@@ -14,9 +14,10 @@
     "release": "standard-version",
     "precommit": "lint-staged"
   },
+  "homepage": "https://github.com/ccn1010/plugin-ts-type-parser",
   "repository": {
     "type": "git",
-    "url": "git@git.dz11.com:xianshui/dy-decode.git"
+    "url": "https://github.com/ccn1010/plugin-ts-type-parser"
   },
   "keywords": [
     "ts",

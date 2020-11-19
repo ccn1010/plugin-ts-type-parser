@@ -1,5 +1,5 @@
 ### plugin-ts-type-parser
-用来对typescript类型数据做反序列化的插件
+用来对 Typescript 类型数据做反序列化的 Babel 插件
 
 将实体类转换的函数补全，例如
 ```typescript
@@ -71,7 +71,7 @@ class A {
 ```
 parseXxx 为自定义的转换函数，第一个参数为是否必须
 
-### 插件配置项
+#### 插件配置项
 ```json
 [
   "plugin-ts-type-parser",
