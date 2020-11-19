@@ -1,0 +1,29 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "loose": true
+      }
+    ],
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    [
+      "../../src",
+      {
+        "directive": "use parser",
+        "parser": {
+          "parseNumber": "parseNumber",
+          "parseString": "parseString",
+          "parseNormal": "parseNormal",
+          "parseBoolean": "parseBoolean",
+          "parseObject": "parseObject",
+          "parseArray": "parseArray",
+          "parseList": "parseList"
+        },
+        "module": "util/parser"
+      }
+    ]
+  ]
+}
