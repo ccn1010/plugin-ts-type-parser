@@ -50,19 +50,19 @@ class A {
   strList: string[];
 
   constructor(data) {
-    this.num = parseNumber(true, data.num);
-    this.bool = parseBoolean(false, data.bool);
-    this.str = parseString(false, data.str);
-    this.normal = parseNormal(false, data.normal);
-    this.hello = parseObject(false, data.hello, Hello);
-    this.helloArray = parseList(false, data.helloArray, Hello);
-    this.numArray = parseArray(false, data.numArray, parseNumber);
-    this.boolArray = parseArray(false, data.boolArray, parseBoolean);
-    this.strArray = parseArray(false, data.strArray, parseString);
-    this.helloList = parseList(false, data.helloList, Hello);
-    this.numberList = parseArray(false, data.numberList, parseNumber);
-    this.booleanList = parseArray(false, data.booleanList, parseBoolean);
-    this.strList = parseArray(false, data.strList, parseString);
+    this.num = parseNumber(true, data, data.num);
+    this.bool = parseBoolean(false, data, data.bool);
+    this.str = parseString(false, data, data.str);
+    this.normal = parseNormal(false, data, data.normal);
+    this.hello = parseObject(false, data, data.hello, Hello);
+    this.helloArray = parseList(false, data, data.helloArray, Hello);
+    this.numArray = parseArray(false, data, data.numArray, parseNumber);
+    this.boolArray = parseArray(false, data, data.boolArray, parseBoolean);
+    this.strArray = parseArray(false, data, data.strArray, parseString);
+    this.helloList = parseList(false, data, data.helloList, Hello);
+    this.numberList = parseArray(false, data, data.numberList, parseNumber);
+    this.booleanList = parseArray(false, data, data.booleanList, parseBoolean);
+    this.strList = parseArray(false, data, data.strList, parseString);
   }
 
   methodA(){
