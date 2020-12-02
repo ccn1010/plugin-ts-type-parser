@@ -22,7 +22,7 @@ export default declare((api, options) => {
           t.stringLiteral(module));
         programPath.node.body.unshift(impDecode);
 
-        const getArrayExp = (param, optional, dataPropName, thisp) => {
+        const getArrayExp = (param, optional, data, dataPropName, thisp) => {
           let genericName;
           let parseName = parseArray;
           if (t.isTSBooleanKeyword(param)) {
@@ -38,7 +38,7 @@ export default declare((api, options) => {
           const arrayExp = t.expressionStatement(t.assignmentExpression('=',
             thisp,
             t.callExpression(t.identifier(parseName),
-              [optional, dataPropName, t.identifier(genericName)])));
+              [optional, data, dataPropName, t.identifier(genericName)])));
 
           return arrayExp;
         }
@@ -64,7 +64,8 @@ export default declare((api, options) => {
             }
             props.forEach(prop => {
               const optional = t.booleanLiteral(!!prop.optional);
-              const dataPropName = t.memberExpression(t.identifier(dataName), t.identifier(prop.key.name));
+              const data = t.identifier(dataName);
+              const dataPropName = t.memberExpression(data, t.identifier(prop.key.name));
               if(!prop.typeAnnotation){
                 throw path.buildCodeFrameError('need define type for property');
               }
@@ -75,41 +76,41 @@ export default declare((api, options) => {
                 const numberExp = t.expressionStatement(t.assignmentExpression('=',
                   thisp,
                   t.callExpression(t.identifier(parseNumber),
-                    [optional, dataPropName])))
+                    [optional, data, dataPropName])))
                 constr.body.body.push(numberExp)
               } else if (t.isTSBooleanKeyword(anno)) {
                 const boolExp = t.expressionStatement(t.assignmentExpression('=',
                   thisp,
                   t.callExpression(t.identifier(parseBoolean),
-                    [optional, dataPropName])))
+                    [optional, data, dataPropName])))
                 constr.body.body.push(boolExp)
               } else if (t.isTSStringKeyword(anno)) {
                 const boolExp = t.expressionStatement(t.assignmentExpression('=',
                   thisp,
                   t.callExpression(t.identifier(parseString),
-                    [optional, dataPropName])))
+                    [optional, data, dataPropName])))
                 constr.body.body.push(boolExp)
               } else if (t.isTSArrayType(anno)) {
                 const param = anno.elementType;
-                const arrayExp = getArrayExp(param, optional, dataPropName, thisp);
+                const arrayExp = getArrayExp(param, optional, data, dataPropName, thisp);
                 constr.body.body.push(arrayExp)
               } else if (t.isTSTypeReference(anno)) {
                 if (anno.typeName.name === 'Array') {
                   const param = anno.typeParameters.params[0];
-                  const arrayExp = getArrayExp(param, optional, dataPropName, thisp);
+                  const arrayExp = getArrayExp(param, optional, data, dataPropName, thisp);
                   constr.body.body.push(arrayExp)
                 } else {
                   const objectExp = t.expressionStatement(t.assignmentExpression('=',
                     thisp,
                     t.callExpression(t.identifier(parseObject),
-                      [optional, dataPropName, t.identifier(anno.typeName.name)])))
+                      [optional, data, dataPropName, t.identifier(anno.typeName.name)])))
                   constr.body.body.push(objectExp)
                 }
               } else {
                 const normalExp = t.expressionStatement(t.assignmentExpression('=',
                     thisp,
                     t.callExpression(t.identifier(parseNormal),
-                      [optional, dataPropName])))
+                      [optional, data, dataPropName])))
                 constr.body.body.push(normalExp)
               }
             })
